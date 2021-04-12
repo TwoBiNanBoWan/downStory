@@ -13,7 +13,8 @@ from bs4 import BeautifulSoup
 BeautifulSoup（https://wiki.jikexueyuan.com/project/python-crawler-guide/beautiful-soup.html）
 Python I/O文件操作（https://www.runoob.com/python/python-files-io.html）
 BeautifulSoup解析器比较（https://blog.csdn.net/Winterto1990/article/details/47806175）
-正则表达式（https://www.runoob.com/python/python-reg-expressions.html）
+正则表达式（https://www.runoob.com/regexp/regexp-syntax.html）
+re（https://blog.csdn.net/zcmlimi/article/details/47709049）
 '''
 
 
