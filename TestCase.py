@@ -6,6 +6,28 @@ from bs4 import BeautifulSoup
 
 
 
+'''
+下方为获取小说插入两章小说章节，因为章节过多，先确保插入两次小范围通过，如须抓取所有章节，去掉if限制即可
+本次脚本参考链接：https://blog.csdn.net/baidu_26678247/article/details/75086587（使用源码阅读）
+涉及到相关知识链接：
+BeautifulSoup（https://wiki.jikexueyuan.com/project/python-crawler-guide/beautiful-soup.html）
+Python I/O文件操作（https://www.runoob.com/python/python-files-io.html）
+BeautifulSoup解析器比较（https://blog.csdn.net/Winterto1990/article/details/47806175）
+正则表达式（https://www.runoob.com/python/python-reg-expressions.html）
+'''
+
+
+#小说下载函数
+#txt_id：小说编号
+#txt字典项介绍
+#id：小说编号
+# title：小说题目
+# first_page：第一章页面
+# txt_section：章节地址
+# section_name：章节名称
+# section_text：章节正文
+# section_ct：章节页数
+
 
 #小说获取参数
 req_header = {
@@ -22,23 +44,11 @@ req_header = {
 }
 req_url_base = 'http://m.rengshu.com'   #小说主地址
 
-#小说下载函数
-#txt_id：小说编号
-#txt字典项介绍
-#id：小说编号
-# title：小说题目
-# first_page：第一章页面
-# txt_section：章节地址
-# section_name：章节名称
-# section_text：章节正文
-# section_ct：章节页数
-
 def get_txt(txt_id):
     txt = {}
     txt['title'] = ''
     txt['id'] = str(txt_id)
 
-    # txt['id'] = input()
     #获取小说目录
     res = requests.get(req_url_base + "/book/" + txt['id'] + "/chapter", params=req_header)
     res.encoding = 'gb18030'
@@ -48,11 +58,11 @@ def get_txt(txt_id):
     #获取小说所有章节信息
     all_page_address = soups.select(".cover .chapter li a")
 
+    #打开本地文件用于存储
     fo = open("/Users/dengyunpeng/Downloads/1.txt", "ab+")
+
     i = 0
     for one_page_info in all_page_address:
-
-
         # 请求当前章节页面  params为请求参数
         r = requests.get(req_url_base + one_page_info['href'], params=req_header)
         r.encoding = 'gb18030'
@@ -76,11 +86,7 @@ def get_txt(txt_id):
             fo.close()
             break
 
-
-
-
-
-
+#小说编号自定义调用
 get_txt(3796)
 
 
